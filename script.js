@@ -2,13 +2,16 @@ const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 const TITLE_WIDTH = 0.08*WIDTH;
 const TITLE_HEIGHT = 0.08*HEIGHT;
-
-console.log(WIDTH, HEIGHT, TITLE_WIDTH, TITLE_HEIGHT);
+const COLOR = "#19166b"
 
 
 var tile = new Array(WIDTH);
 for (var i = 0; i < tile.length; i++) {tile[i] = new Array(HEIGHT);}
-for (var i = 0; i < tile.length; i++) {for (var j = 0; j < tile[0].length; j++) {tile[i][j] = 0;}}
+for (var i = 0; i < tile.length; i++) {
+    for (var j = 0; j < tile[0].length; j++) {
+        tile[i][j] = (Math.floor(Math.random() * 5));
+    }
+}
 
 function createCanvas(){
     let canvas = document.createElement('canvas');
@@ -19,7 +22,21 @@ function createCanvas(){
     let ctx = canvas.getContext('2d');
     for(let i = 0; i < tile.length; i++){
         for(let j = 0; j < tile[0].length; j++){
-                drawTile(ctx, i, j, TITLE_WIDTH, TITLE_HEIGHT, "#27259c", Math.floor(Math.random() * 5));
+            if(tile[i][j] == 0){
+                drawTile(ctx, i, j, TITLE_WIDTH, TITLE_HEIGHT, COLOR, 0);
+            }
+            if(tile[i][j] == 1){
+                drawTile(ctx, i, j, TITLE_WIDTH, TITLE_HEIGHT, COLOR, 1);
+            }
+            if(tile[i][j] == 2){
+                drawTile(ctx, i, j, TITLE_WIDTH, TITLE_HEIGHT, COLOR, 2);
+            }
+            if(tile[i][j] == 3){
+                drawTile(ctx, i, j, TITLE_WIDTH, TITLE_HEIGHT, COLOR, 3);
+            }
+            if(tile[i][j] == 4){
+                drawTile(ctx, i, j, TITLE_WIDTH, TITLE_HEIGHT, COLOR, 4);
+            }
         }
     }
     document.body.appendChild(canvas);
