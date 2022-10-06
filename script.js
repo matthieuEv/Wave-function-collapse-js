@@ -1,17 +1,20 @@
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
-const TITLE_HEIGHT = 0.08*HEIGHT;
+const TITLE_HEIGHT = 0.2*HEIGHT;
 const TITLE_WIDTH = TITLE_HEIGHT;
 const COLOR = "#348ceb"
+// tile[i][j] = (Math.floor(Math.random() * 16));
+
+console.log(WIDTH,HEIGHT);
 
 /* North South East West*/
-var dict = {0:[[2,4,8,9,10,12,13,14],[1,2,3,5,8,9,13,15],[0,1,2,4,7,8,12,15],[0,2,3,4,6,9,10,15]],
-            1:[[0,1,3,5,6,7,11,15],[1,2,35,8,9,13,15],[3,5,6,9,10,11,13,14],[0,2,34,6,9,10,15]],
+const dict = {0:[[2,4,8,9,10,12,13,14],[1,2,3,5,8,9,13,15],[0,1,2,4,7,8,12,15],[0,2,3,4,6,9,10,15]],
+            1:[[0,1,3,5,6,7,11,15],[1,2,3,5,8,9,13,15],[3,5,6,9,10,11,13,14],[0,2,3,4,6,9,10,15]],
             2:[[0,1,3,5,6,7,11,15],[0,4,6,7,10,11,12,14],[0,1,2,4,7,8,12,15],[0,2,3,4,6,9,10,15]],
             3:[[0,1,3,5,6,7,11,15],[1,2,3,5,8,9,13,15],[0,1,2,4,7,8,12,15],[1,5,7,8,11,12,13,14]],
             4:[[2,8,9,10,12,13,14],[0,6,7,10,11,12,14],[0,1,2,4,7,8,12,15],[0,2,3,4,6,9,10,15]],
             5:[[0,1,3,5,6,7,11,15],[1,2,3,5,8,9,13,15],[3,6,9,10,11,13,14],[1,7,8,11,12,13,14]],
-            6:[[2,4,8,8,9,10,12,13,14],[1,2,3,5,8,9,13,15],[0,1,2,4,7,8,12,15],[1,5,7,8,11,12,13,14]],
+            6:[[2,4,8,9,10,12,13,14],[1,2,3,5,8,9,13,15],[0,1,2,4,7,8,12,15],[1,5,7,8,11,12,13,14]],
             7:[[2,4,8,9,10,12,13,14],[1,2,3,5,8,9,13,15],[3,5,6,9,10,11,13,14],[0,2,3,4,6,9,10,15]],
             8:[[0,1,3,5,6,7,13,15],[0,4,6,7,10,11,12,14],[3,5,6,9,10,11,13,14],[0,2,3,4,6,9,10,15]],
             9:[[0,1,3,5,6,7,11,15],[0,4,6,7,10,11,12,14],[0,1,2,4,7,8,12,15],[1,5,7,8,11,12,13,14]],
@@ -22,15 +25,10 @@ var dict = {0:[[2,4,8,9,10,12,13,14],[1,2,3,5,8,9,13,15],[0,1,2,4,7,8,12,15],[0,
             14:[[2,4,8,9,10,12,13,14],[0,4,6,7,10,11,12,14],[3,5,6,9,10,11,13,14],[1,5,7,8,11,12,13,14]],
             15:[[0,1,3,5,6,7,11,15],[1,2,3,5,8,9,13,15],[0,1,2,4,7,8,12,15],[0,2,34,6,9,10,15]]
         };
-console.log(dict);
 
-var tile = new Array(WIDTH);
-for (var i = 0; i < tile.length; i++) {tile[i] = new Array(HEIGHT);}
-for (var i = 0; i < tile.length; i++) {
-    for (var j = 0; j < tile[0].length; j++) {
-        tile[i][j] = (Math.floor(Math.random() * 16));
-    }
-}
+var tile = new Array(Math.round(WIDTH/TITLE_WIDTH));
+
+
 
 function createCanvas(){
     let canvas = document.createElement('canvas');
@@ -39,6 +37,8 @@ function createCanvas(){
     canvas.style.backgroundColor = 'black';
 
     let ctx = canvas.getContext('2d');
+
+    processTile();
     for(let i = 0; i < tile.length; i++){
         for(let j = 0; j < tile[0].length; j++){
             drawTile(ctx, i, j, TITLE_WIDTH, TITLE_HEIGHT, COLOR, tile[i][j]);
@@ -130,6 +130,21 @@ function drawTile(ctx, x, y, w, h, color, type){
     }
     ctx.closePath();
     ctx.fill();
+}
+
+function processTile(){
+    for (var i = 0; i < tile.length; i++) {
+        tile[i] = new Array(HEIGHT/TITLE_HEIGHT);
+    }
+    for (var i = 0; i < tile[0].length; i++) {
+        if(i == 0){
+            tile[0][0] = (Math.floor(Math.random() * 16));
+        }
+        else{
+            // dict[tile][N S E W][tile possible]
+            tile[0][i] = dict[tile[0][i-1]][1][Math.floor(Math.random() * dict[tile[0][i-1]][0].length)];
+        }
+    }
 }
 
 createCanvas();
