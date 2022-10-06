@@ -1,7 +1,7 @@
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
-const TITLE_WIDTH = 0.08*WIDTH;
 const TITLE_HEIGHT = 0.08*HEIGHT;
+const TITLE_WIDTH = TITLE_HEIGHT;
 const COLOR = "#19166b"
 
 
