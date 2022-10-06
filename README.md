@@ -1,5 +1,5 @@
 ﻿# Wave-function-collapse-js
- I'm trying to do some wave function collapse in js 
+ This is my first wave function collapse I did for fun, and because it looks great.
  
  Enjoy ;)
 
