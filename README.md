@@ -5,6 +5,8 @@
 
 ## Demo
 
+[Tester en ligne](https://matthieuev.github.io/Wave-function-collapse-js/)
+
 https://user-images.githubusercontent.com/95125079/194406692-e03362ec-b8bd-4b3c-abf4-825cadfd8413.mp4
 
 ## Authors
