@@ -1,5 +1,73 @@
 *{
     margin: 0;
     overflow: hidden;
-    background-color: #fff;
+}
+
+body{
+    position: relative;
+    background-color: #000;
+    font-family: "Fira Sans", sans-serif;
+    color: #000;
+    line-height: 1.5;
+}
+
+.settings{
+    font-size: 1vw;
+    position: absolute;
+    right: 0;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 20px 0px #000000;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+.size,
+.randomize,
+.color{
+    background-color: #fff !important;
+    position: relative;
+    margin: 20px;
+    width: 250px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), #fff);
+    padding: 5px 20px;
+    border-radius: 40px;
+    box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.1),
+                -15px -15px 20px #fff ;
+}
+
+.color label,
+.size label,
+.randomize label{
+    font-weight: 200;
+    margin-right: 20px;
+}
+
+#color{
+    border: none;
+    background-color: #ffffff00;
+    width: 40px;
+    height: 40px;
+}
+
+.randomize{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#randomize{
+    border: none;
+    background-color: #ffffff00;
+    padding: 10px 50px;
+    font-size: 1vw;
+}
+#randomize:hover{
+    cursor: pointer;
+    background-color: #ffffff00;
 }

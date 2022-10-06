@@ -1,6 +1,8 @@
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
-const TITLE_HEIGHT = Math.round(0.01*HEIGHT);
+
+let size = document.getElementById("size").value/1000;
+const TITLE_HEIGHT = Math.round(size*HEIGHT);
 const TITLE_WIDTH = TITLE_HEIGHT;
 const COLOR = "#348ceb"
 
@@ -38,7 +40,7 @@ function createCanvas(){
     processTile();
     for(let i = 0; i < tile.length; i++){
         for(let j = 0; j < tile[0].length; j++){
-            drawTile(ctx, i, j, TITLE_WIDTH, TITLE_HEIGHT, COLOR, tile[i][j]);
+            drawTile(ctx, i, j, TITLE_WIDTH, TITLE_HEIGHT, document.getElementById("color").value, tile[i][j]);
         }
     }
     document.body.appendChild(canvas);
@@ -161,5 +163,18 @@ function processTile(){
 function getArraysIntersection(a1,a2){
     return  a1.filter(function(n) { return a2.indexOf(n) !== -1;});
 }
+
+document.getElementById("size").addEventListener("change", function(){
+    location.reload();
+});
+
+document.getElementById("color").addEventListener("change", function(){
+    location.reload();
+}, false);
+
+document.getElementById("randomize").addEventListener("click", function(){
+    location.reload();
+}, false);
+
 
 createCanvas();
