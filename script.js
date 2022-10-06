@@ -1,11 +1,8 @@
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
-const TITLE_HEIGHT = 0.2*HEIGHT;
+const TITLE_HEIGHT = Math.round(0.01*HEIGHT);
 const TITLE_WIDTH = TITLE_HEIGHT;
 const COLOR = "#348ceb"
-// tile[i][j] = (Math.floor(Math.random() * 16));
-
-console.log(WIDTH,HEIGHT);
 
 /* North South East West*/
 const dict = {0:[[2,4,8,9,10,12,13,14],[1,2,3,5,8,9,13,15],[0,1,2,4,7,8,12,15],[0,2,3,4,6,9,10,15]],
@@ -134,17 +131,35 @@ function drawTile(ctx, x, y, w, h, color, type){
 
 function processTile(){
     for (var i = 0; i < tile.length; i++) {
-        tile[i] = new Array(HEIGHT/TITLE_HEIGHT);
+        tile[i] = new Array(Math.round(HEIGHT/TITLE_HEIGHT));
     }
-    for (var i = 0; i < tile[0].length; i++) {
-        if(i == 0){
-            tile[0][0] = (Math.floor(Math.random() * 16));
-        }
-        else{
-            // dict[tile][N S E W][tile possible]
-            tile[0][i] = dict[tile[0][i-1]][1][Math.floor(Math.random() * dict[tile[0][i-1]][0].length)];
+    for (var i = 0; i < tile.length; i++) {
+        for (var j = 0; j < tile[i].length; j++) {
+            if(i == 0 && j == 0){
+                tile[0][0] = (Math.floor(Math.random() * 16));
+            }
+            else if(i==0){
+                // dict[tile][N S E W][tile possible]
+                tile[i][j] = dict[tile[i][j-1]][1][Math.floor(Math.random() * dict[tile[i][j-1]][1].length)];
+            }
+            else{
+                if(j==0){
+                    tile[i][j] = dict[tile[i-1][j]][2][Math.floor(Math.random() * dict[tile[i-1][j]][2].length)];
+                }
+                else{
+                    let top = dict[tile[i][j-1]][1];
+                    let left = dict[tile[i-1][j]][2];
+                    var beetween=getArraysIntersection(top, left);
+                    let random = beetween[Math.floor(Math.random() * beetween.length)];
+                    tile[i][j] = random;
+                }
+            }
         }
     }
+}
+
+function getArraysIntersection(a1,a2){
+    return  a1.filter(function(n) { return a2.indexOf(n) !== -1;});
 }
 
 createCanvas();
