@@ -72,27 +72,22 @@ function drawTile(ctx, x, y, w, h, color, type) {
         actions.push([0.0, 0.4, 1.0, 0.2]);
     }
     if (type === 6) {
-        // ctx.fillStyle = color;
         actions.push([0.0, 0.4, 0.6, 0.2]);
         actions.push([0.4, 0.0, 0.2, 0.6]);
     }
     if (type === 7) {
-        // ctx.fillStyle = color;
         actions.push([0.5, 0.4, 0.6, 0.2]);
         actions.push([0.4, 0.0, 0.2, 0.6]);
     }
     if (type === 8) {
-        // ctx.fillStyle = color;
         actions.push([0.5, 0.4, 0.6, 0.2]);
         actions.push([0.4, 0.4, 0.2, 0.6]);
     }
     if (type === 9) {
-        // ctx.fillStyle = color;
         actions.push([0.0, 0.4, 0.6, 0.2]);
         actions.push([0.4, 0.5, 0.2, 0.6]);
     }
     if (type === 10) {
-        // ctx.fillStyle = color;
         actions.push([0.4, 0.0, 0.2, 1.0]);
         actions.push([0.0, 0.4, 0.6, 0.2]);
     }
