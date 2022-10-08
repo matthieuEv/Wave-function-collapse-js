@@ -162,9 +162,9 @@ document.getElementById("size").oninput = function(){
     createCanvas(document.getElementById("color").value, document.getElementById("size").value/1000);
 };
 
-document.getElementById("color").oninput = function() {
+document.getElementById("color").addEventListener("change", function () {
     createCanvas(document.getElementById("color").value, document.getElementById("size").value/1000);
-};
+}, false);
 
 document.getElementById("randomize").addEventListener("click", function () {
     createCanvas(document.getElementById("color").value, document.getElementById("size").value/1000);
