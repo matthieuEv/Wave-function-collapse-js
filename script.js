@@ -21,25 +21,36 @@ const dict = {
     15: [[0, 1, 3, 5, 6, 7, 11, 15], [1, 2, 3, 5, 8, 9, 13, 15], [0, 1, 2, 4, 7, 8, 12, 15], [0, 2, 34, 6, 9, 10, 15]]
 };
 
-
+//Create the canvas, setup the width, height ans context
 let canvas = document.createElement('canvas');
 canvas.width = WIDTH;
 canvas.height = HEIGHT;
 canvas.style.backgroundColor = 'black';
-
 let ctx = canvas.getContext('2d');
 
+//Create array to choose the tiles
 const tile = new Array();
 
-function createCanvas(color, size) {
+/**
+ * Returns ctx to draw in the canvas.
+ *
+ * @param {number} color The color applied to the tiles.
+ * @param {string} x The size of the tiles.
+ * @return {CanvasRenderingContext2D} The context of the canvas.
+ */
+function drawCanvas(color, size) {
 
+    //Init all the tiles to 0
     for(let i = 0; i < Math.round(WIDTH / (size * HEIGHT)); i++){
         for(let j = 0; j < 8; j++){
             tile[i] = 0;
         }
     }
+    //clear the canvas
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
     processTile(size);
+
+    //Draw the tiles in the canvas
     for (let i = 0; i < tile.length; i++) {
         for (let j = 0; j < tile[0].length; j++) {
             drawTile(ctx, i, j, Math.round(size * HEIGHT), Math.round(size * HEIGHT), color, tile[i][j], size);
@@ -50,67 +61,97 @@ function createCanvas(color, size) {
     return ctx;
 }
 
+/**
+ * Draw all the tiles in the canvas.
+ *
+ * @param {CanvasRenderingContext2D} ctx The context of the canvas.
+ * @param {number} x x pos of the tile.
+ * @param {number} y y pos of the tile.
+ * @param {number} w width of the tile.
+ * @param {number} h height of the tile.
+ * @param {string} color The color applied to the tiles.
+ * @param {number} type The type of the tile.
+ * @param {string} size The size of the tiles.
+ */
 function drawTile(ctx, x, y, w, h, color, type, size) {
 
     ctx.beginPath();
     ctx.fillStyle = type === 15 ? "black" : color;
     const actions = [];
-    if (type === 0) {
-        actions.push([0.4, 0.0, 0.2, 0.5]);
-    }
-    if (type === 1) {
-        actions.push([0.5, 0.4, 0.5, 0.2]);
-    }
-    if (type === 2) {
-        actions.push([0.4, 0.5, 0.2, 0.5]);
-    }
-    if (type === 3) {
-        actions.push([0.0, 0.4, 0.5, 0.2]);
-    }
-    if (type === 4) {
-        actions.push([0.4, 0.0, 0.2, 1.0]);
-    }
-    if (type === 5) {
-        actions.push([0.0, 0.4, 1.0, 0.2]);
-    }
-    if (type === 6) {
-        actions.push([0.0, 0.4, 0.6, 0.2]);
-        actions.push([0.4, 0.0, 0.2, 0.6]);
-    }
-    if (type === 7) {
-        actions.push([0.5, 0.4, 0.6, 0.2]);
-        actions.push([0.4, 0.0, 0.2, 0.6]);
-    }
-    if (type === 8) {
-        actions.push([0.5, 0.4, 0.6, 0.2]);
-        actions.push([0.4, 0.4, 0.2, 0.6]);
-    }
-    if (type === 9) {
-        actions.push([0.0, 0.4, 0.6, 0.2]);
-        actions.push([0.4, 0.5, 0.2, 0.6]);
-    }
-    if (type === 10) {
-        actions.push([0.4, 0.0, 0.2, 1.0]);
-        actions.push([0.0, 0.4, 0.6, 0.2]);
-    }
-    if (type === 11) {
-        actions.push([0.0, 0.4, 1.0, 0.2]);
-        actions.push([0.4, 0.0, 0.2, 0.6]);
-    }
-    if (type === 12) {
-        actions.push([0.4, 0.0, 0.2, 1.0]);
-        actions.push([0.5, 0.4, 0.6, 0.2]);
-    }
-    if (type === 13) {
-        actions.push([0.0, 0.4, 1.0, 0.2]);
-        actions.push([0.4, 0.5, 0.2, 0.6]);
-    }
-    if (type === 14) {
-        actions.push([0.0, 0.4, 1.0, 0.2]);
-        actions.push([0.4, 0.0, 0.2, 1.0]);
-    }
-    if (type === 15) {
-        ctx.fillRect(x * w, y * h, w, h);
+    //design all the tiles
+    switch (type) {
+        case 0:
+            actions.push([0.4, 0.0, 0.2, 0.5]);
+            break;
+        
+        case 1:
+            actions.push([0.5, 0.4, 0.5, 0.2]);
+            break;
+
+        case 2:
+            actions.push([0.4, 0.5, 0.2, 0.5]);
+            break;
+
+        case 3:
+            actions.push([0.0, 0.4, 0.5, 0.2]);
+            break;
+
+        case 4:
+            actions.push([0.4, 0.0, 0.2, 1.0]);
+            break;
+
+        case 5:
+            actions.push([0.0, 0.4, 1.0, 0.2]);
+            break;
+
+        case 6:
+            actions.push([0.0, 0.4, 0.6, 0.2]);
+            actions.push([0.4, 0.0, 0.2, 0.6]);
+            break;
+
+        case 7:
+            actions.push([0.5, 0.4, 0.6, 0.2]);
+            actions.push([0.4, 0.0, 0.2, 0.6]);
+            break;
+
+        case 8:
+            actions.push([0.5, 0.4, 0.6, 0.2]);
+            actions.push([0.4, 0.4, 0.2, 0.6]);
+            break;
+
+        case 9:
+            actions.push([0.0, 0.4, 0.6, 0.2]);
+            actions.push([0.4, 0.5, 0.2, 0.6]);
+            break;
+
+        case 10:
+            actions.push([0.4, 0.0, 0.2, 1.0]);
+            actions.push([0.0, 0.4, 0.6, 0.2]);
+            break;
+
+        case 11:
+            actions.push([0.0, 0.4, 1.0, 0.2]);
+            actions.push([0.4, 0.0, 0.2, 0.6]);
+            break;
+
+        case 12:
+            actions.push([0.4, 0.0, 0.2, 1.0]);
+            actions.push([0.5, 0.4, 0.6, 0.2]);
+            break;
+
+        case 13:
+            actions.push([0.0, 0.4, 1.0, 0.2]);
+            actions.push([0.4, 0.5, 0.2, 0.6]);
+            break;
+
+        case 14:
+            actions.push([0.0, 0.4, 1.0, 0.2]);
+            actions.push([0.4, 0.0, 0.2, 1.0]);
+            break;
+
+        case 15:
+            ctx.fillRect(x * w, y * h, w, h);
+            break;
     }
 
     if (type < 4) {
@@ -125,16 +166,37 @@ function drawTile(ctx, x, y, w, h, color, type, size) {
     ctx.fill();
 }
 
-/// Better to declare before using it
+
+/**
+ * Return the intersection of two arrays.
+ * @param {array} a1 
+ * @param {array} a2 
+ * @returns Array
+ */
 function getArraysIntersection(a1, a2) {
     return a1.filter(function (n) {
         return a2.indexOf(n) !== -1;
     });
 }
 
+
+/**
+ * Return a random position in the array
+ * @param {array} array 
+ * @returns number
+ */
+function randomTile(array){
+    return Math.floor(Math.random() * array.length);
+}
+
+
+/**
+ * Fill the list with matching tiles
+ * @param {number} size 
+ */
 function processTile(size) {
+    //create a 2d array of tiles
     for (let i = 0; i < tile.length; i++) {
-        console.log(">>> "+Math.round(HEIGHT / (size * HEIGHT)));
         tile[i] = new Array(Math.round(HEIGHT / (size * HEIGHT)));
     }
     for (let i = 0; i < tile.length; i++) {
@@ -143,15 +205,12 @@ function processTile(size) {
                 tile[0][0] = (Math.floor(Math.random() * 16));
             } else if (i === 0) {
                 // dict[tile][N S E W][tile possible]
-                tile[i][j] = dict[tile[i][j - 1]][1][Math.floor(Math.random() * dict[tile[i][j - 1]][1].length)];
+                tile[i][j] = dict[tile[i][j - 1]][1][randomTile(dict[tile[i][j - 1]][1])];
             } else {
                 if (j === 0) {
-                    tile[i][j] = dict[tile[i - 1][j]][2][Math.floor(Math.random() * dict[tile[i - 1][j]][2].length)];
+                    tile[i][j] = dict[tile[i - 1][j]][2][randomTile(dict[tile[i - 1][j]][2])];
                 } else {
-                    let top = dict[tile[i][j - 1]][1];
-                    let left = dict[tile[i - 1][j]][2];
-                    const between = getArraysIntersection(top, left);
-                    tile[i][j] = between[Math.floor(Math.random() * between.length)];
+                    tile[i][j] = getArraysIntersection(dict[tile[i][j - 1]][1], dict[tile[i - 1][j]][2])[randomTile(getArraysIntersection(dict[tile[i][j - 1]][1], dict[tile[i - 1][j]][2]))];
                 }
             }
         }
@@ -159,16 +218,16 @@ function processTile(size) {
 }
 
 document.getElementById("size").oninput = function(){
-    createCanvas(document.getElementById("color").value, document.getElementById("size").value/1000);
+    drawCanvas(document.getElementById("color").value, document.getElementById("size").value/1000);
 };
 
 document.getElementById("color").addEventListener("change", function () {
-    createCanvas(document.getElementById("color").value, document.getElementById("size").value/1000);
+    drawCanvas(document.getElementById("color").value, document.getElementById("size").value/1000);
 }, false);
 
 document.getElementById("randomize").addEventListener("click", function () {
-    createCanvas(document.getElementById("color").value, document.getElementById("size").value/1000);
+    drawCanvas(document.getElementById("color").value, document.getElementById("size").value/1000);
 }, false);
 
 
-createCanvas(document.getElementById("color").value, document.getElementById("size").value/1000);
+drawCanvas(document.getElementById("color").value, document.getElementById("size").value/1000);
