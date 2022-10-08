@@ -5,9 +5,7 @@
 
 ## Demo
 
-[Tester en ligne](https://matthieuev.github.io/Wave-function-collapse-js/)
-
-(Only on Firefox for now)
+[Test it online](https://matthieuev.github.io/Wave-function-collapse-js/)
 
 ![gif](https://github.com/matthieuEv/Wave-function-collapse-js/blob/main/gif.gif?raw=true)
 
