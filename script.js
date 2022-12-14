@@ -81,19 +81,22 @@ function drawTile(ctx, x, y, w, h, color, type, size) {
     //design all the tiles
     switch (type) {
         case 0:
-            actions.push([0.4, 0.0, 0.2, 0.5]);
+            
             break;
         
         case 1:
             actions.push([0.5, 0.4, 0.5, 0.2]);
+            ctx.arc(x * w + 0.5 * Math.round(size * HEIGHT), y * h + 0.5 * Math.round(size * HEIGHT), Math.round(size * HEIGHT) * 0.2, 0, Math.PI * 2, 1);
             break;
 
         case 2:
             actions.push([0.4, 0.5, 0.2, 0.5]);
+            ctx.arc(x * w + 0.5 * Math.round(size * HEIGHT), y * h + 0.5 * Math.round(size * HEIGHT), Math.round(size * HEIGHT) * 0.2, 0, Math.PI * 2, 1);
             break;
 
         case 3:
             actions.push([0.0, 0.4, 0.5, 0.2]);
+            ctx.arc(x * w + 0.5 * Math.round(size * HEIGHT), y * h + 0.5 * Math.round(size * HEIGHT), Math.round(size * HEIGHT) * 0.2, 0, Math.PI * 2, 1);
             break;
 
         case 4:
@@ -152,10 +155,6 @@ function drawTile(ctx, x, y, w, h, color, type, size) {
         case 15:
             ctx.fillRect(x * w, y * h, w, h);
             break;
-    }
-
-    if (type < 4) {
-        ctx.arc(x * w + 0.5 * Math.round(size * HEIGHT), y * h + 0.5 * Math.round(size * HEIGHT), Math.round(size * HEIGHT) * 0.2, 0, Math.PI * 2, 1);
     }
 
     actions.forEach((values) => {
