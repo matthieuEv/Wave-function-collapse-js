@@ -25,7 +25,7 @@ const dict = {
 let canvas = document.createElement('canvas');
 canvas.width = WIDTH;
 canvas.height = HEIGHT;
-canvas.style.backgroundColor = 'black';
+// canvas.style.backgroundColor = 'black';
 let ctx = canvas.getContext('2d');
 
 //Create array to choose the tiles
@@ -35,7 +35,7 @@ const tile = new Array();
  * Returns ctx to draw in the canvas.
  *
  * @param {number} color The color applied to the tiles.
- * @param {string} x The size of the tiles.
+ * @param {string} size The size of the tiles.
  * @return {CanvasRenderingContext2D} The context of the canvas.
  */
 function drawCanvas(color, size) {
@@ -74,97 +74,12 @@ function drawCanvas(color, size) {
  * @param {string} size The size of the tiles.
  */
 function drawTile(ctx, x, y, w, h, color, type, size) {
-
-    ctx.beginPath();
-    ctx.fillStyle = type === 15 ? "black" : color;
-    const actions = [];
-    //design all the tiles
-    switch (type) {
-        case 0:
-            
-            break;
-        
-        case 1:
-            actions.push([0.5, 0.4, 0.5, 0.2]);
-            ctx.arc(x * w + 0.5 * Math.round(size * HEIGHT), y * h + 0.5 * Math.round(size * HEIGHT), Math.round(size * HEIGHT) * 0.2, 0, Math.PI * 2, 1);
-            break;
-
-        case 2:
-            actions.push([0.4, 0.5, 0.2, 0.5]);
-            ctx.arc(x * w + 0.5 * Math.round(size * HEIGHT), y * h + 0.5 * Math.round(size * HEIGHT), Math.round(size * HEIGHT) * 0.2, 0, Math.PI * 2, 1);
-            break;
-
-        case 3:
-            actions.push([0.0, 0.4, 0.5, 0.2]);
-            ctx.arc(x * w + 0.5 * Math.round(size * HEIGHT), y * h + 0.5 * Math.round(size * HEIGHT), Math.round(size * HEIGHT) * 0.2, 0, Math.PI * 2, 1);
-            break;
-
-        case 4:
-            actions.push([0.4, 0.0, 0.2, 1.0]);
-            break;
-
-        case 5:
-            actions.push([0.0, 0.4, 1.0, 0.2]);
-            break;
-
-        case 6:
-            actions.push([0.0, 0.4, 0.6, 0.2]);
-            actions.push([0.4, 0.0, 0.2, 0.6]);
-            break;
-
-        case 7:
-            actions.push([0.5, 0.4, 0.6, 0.2]);
-            actions.push([0.4, 0.0, 0.2, 0.6]);
-            break;
-
-        case 8:
-            actions.push([0.5, 0.4, 0.6, 0.2]);
-            actions.push([0.4, 0.4, 0.2, 0.6]);
-            break;
-
-        case 9:
-            actions.push([0.0, 0.4, 0.6, 0.2]);
-            actions.push([0.4, 0.5, 0.2, 0.6]);
-            break;
-
-        case 10:
-            actions.push([0.4, 0.0, 0.2, 1.0]);
-            actions.push([0.0, 0.4, 0.6, 0.2]);
-            break;
-
-        case 11:
-            actions.push([0.0, 0.4, 1.0, 0.2]);
-            actions.push([0.4, 0.0, 0.2, 0.6]);
-            break;
-
-        case 12:
-            actions.push([0.4, 0.0, 0.2, 1.0]);
-            actions.push([0.5, 0.4, 0.6, 0.2]);
-            break;
-
-        case 13:
-            actions.push([0.0, 0.4, 1.0, 0.2]);
-            actions.push([0.4, 0.5, 0.2, 0.6]);
-            break;
-
-        case 14:
-            actions.push([0.0, 0.4, 1.0, 0.2]);
-            actions.push([0.4, 0.0, 0.2, 1.0]);
-            break;
-
-        case 15:
-            ctx.fillRect(x * w, y * h, w, h);
-            break;
+    let img = new Image();
+    img.src = 'img/'+type+'.png';
+    img.onload = function() {
+        ctx.drawImage(img, x * w, y * h, w, h);
     }
-
-    actions.forEach((values) => {
-        ctx.fillRect(x * w + values[0] * Math.round(size * HEIGHT), y * h + values[1] * Math.round(size * HEIGHT), Math.round(size * HEIGHT) * values[2], Math.round(size * HEIGHT) * values[3]);
-    });
-
-    ctx.closePath();
-    ctx.fill();
 }
-
 
 /**
  * Return the intersection of two arrays.
@@ -216,9 +131,9 @@ function processTile(size) {
     }
 }
 
-document.getElementById("size").oninput = function(){
+document.getElementById("size").addEventListener("change", function () {
     drawCanvas(document.getElementById("color").value, document.getElementById("size").value/1000);
-};
+}, false);
 
 document.getElementById("color").addEventListener("change", function () {
     drawCanvas(document.getElementById("color").value, document.getElementById("size").value/1000);
